@@ -1,0 +1,107 @@
+---
+title: "Introducción a R y a RStudio"
+editor: visual
+---
+
+# Instalar paquetes
+
+```{r}
+install.packages("ggplot2")
+install.packages("haven")
+install.packages("dplyr")
+install.packages("psych")
+```
+
+# Cargar paquetes
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(haven)
+library(psych)
+```
+
+# Leer datos desde archivo
+
+```{r}
+sexismos <- read_sav("datos.sav")
+```
+
+# Verificar lectura de datos
+
+```{r}
+glimpse(sexismos)
+```
+
+# Reconocer tipos de objetos
+
+```{r}
+# double
+vector_dbl <- c(1.3, -5.4, NA)
+
+# integer
+vector_int <- c(1L, 3L, NA)
+
+# character
+vector_chr <- c("1.3", "-5.4", NA)
+
+# logical
+vector_lgl <- c(TRUE, T, FALSE)
+
+# factor
+vector_fctr <- factor(c(1, 2, 3), levels = c(3, 2, 1))
+
+# data.frame
+datosdf <- data.frame(vector_dbl, vector_int, vector_chr, vector_lgl, vector_fctr)
+
+# tibble
+datostb <- tibble(vector_dbl, vector_int, vector_chr, vector_lgl, vector_fctr)
+```
+
+# Generar estadísticos descriptivos
+
+```{r}
+summary(sexismos)
+
+sexismos |>
+  summary()
+
+sexismos |>
+  describe()
+
+sexismos |>
+  select(where(is.numeric)) |>
+  describe()
+```
+
+# Graficar 
+
+```{r}
+ggplot(sexismos) +
+  aes(x=panaspos, y=panasneg) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = lm)
+```
+
+# Crear/modificar columnas
+
+```{r}
+sexismos <- sexismos |>
+  mutate(P2Edad = P2Edad*12)
+```
+
+# Filtrar filas
+
+```{r}
+conHijos <- sexismos |>
+  filter(P8Hijos1 == 1)
+```
+
+# Calcular estadísticos por grupo
+
+```{r}
+sexismos |>
+  group_by(P6Estadocivil) |>
+  summarise(
+    medias_panaspos = mean(panaspos, na.rm = T))
+```
