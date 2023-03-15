@@ -6,103 +6,52 @@ editor: visual
 # Instalar paquetes
 
 ```{r}
-
-
-
-
+install.packages("ggplot2")
+install.packages("haven")
+install.packages("dplyr")
+install.packages("psych")
 ```
 
 # Cargar paquetes
 
 ```{r}
-
-
-
-
+library(ggplot2)
+library(dplyr)
+library(psych)
+library(haven)
 ```
 
 # Leer datos desde archivo
 
 ```{r}
-
+sexismo <- read_sav("datos.sav")
 ```
 
 # Verificar lectura de datos
 
 ```{r}
-
+glimpse(sexismo)
 ```
 
 # Reconocer tipos de objetos
 
 ```{r}
 # double
-
+vector_dbl <- c(1.3, -5.4, NA)
 
 # integer
-
+vector_int <- c(1L, 3L, NA)
 
 # character
-
+vector_chr <- c("1.3", "-5.4", NA)
 
 # logical
-
-
-# factor
-
+vector_lgl <- c(TRUE, FALSE, TRUE)
 
 # data.frame
-
-
-# tibble
-
-
-```
-
-# Generar estadísticos descriptivos
-
-```{r}
-
-
-
-
-
-
-
-
-
-
-
-```
-
-# Graficar
-
-```{r}
-
-
-
-
-```
-
-# Crear/modificar columnas
-
-```{r}
-
-
-```
-
-# Filtrar filas
-
-```{r}
-
-
-```
-
-# Calcular estadísticos por grupo
-
-```{r}
-
-
-
-
+datosdf <- data.frame(
+  vector_dbl, 
+  vector_int, 
+  vector_chr, 
+  vector_lgl)
 ```
